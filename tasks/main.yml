@@ -1,0 +1,6 @@
+---
+- include: install.yml
+  tags: [web-server, jetty, install, jetty-install]
+
+- include: configure.yml
+  tags: [web-server, jetty, configuration, jetty-configuration]

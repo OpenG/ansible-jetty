@@ -1,0 +1,30 @@
+---
+- name: stat jetty path
+  stat: path=/opt/jetty
+  register: jetty_path
+
+- name: download jetty tarball
+  get_url:
+    url: http://download.eclipse.org/jetty/{{ jetty_version }}/dist/jetty-distribution-{{ jetty_version }}.tar.gz
+    dest: /opt/jetty.tar.gz
+  when: jetty_path.stat.exists == false
+
+- name: unarchive jetty tarball
+  unarchive: src=/opt/jetty.tar.gz dest=/opt copy=no
+  when: jetty_path.stat.exists == false
+
+- name: remove jetty tarball
+  file: name=/opt/jetty.tar.gz state=absent
+
+- name: move jetty to an appropriate directory
+  command: mv /opt/jetty-distribution-{{ jetty_version }} /opt/jetty
+  when: jetty_path.stat.exists == false
+
+- name: add jetty user
+  user: name="{{ jetty_user }}" home=/opt/jetty system=yes
+
+- name: change jetty directory owner and group
+  file: name=/opt/jetty owner={{ jetty_user }} group={{ jetty_user }} recurse=yes
+
+- name: register jetty startup script
+  file: src=/opt/jetty/bin/jetty.sh dest=/etc/init.d/jetty state=link

@@ -1,6 +1,0 @@
----
-- name: copy across jetty defaults
-  template: src=jetty.j2 dest=/etc/default/jetty
-
-- name: configure jetty as startup service
-  service: name=jetty state=started enabled=yes

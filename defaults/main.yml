@@ -1,5 +1,3 @@
 ---
-jetty_home: /opt/jetty
 jetty_base: /opt/jetty/demo-base
-jetty_user: jetty
-jetty_version: 9.2.10.v20150310
+jetty_version: 9.3.6.v20151106

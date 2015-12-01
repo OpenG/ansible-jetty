@@ -1,6 +1,30 @@
 ---
-- include: install.yml
-  tags: [web-server, jetty, install, jetty-install]
+- name: add user
+  user: name=jetty system=yes
+  tags:
+    - jetty
 
-- include: configure.yml
-  tags: [web-server, jetty, configuration, jetty-configuration]
+- name: download tarball
+  get_url:
+    url: http://download.eclipse.org/jetty/{{ jetty_version }}/dist/jetty-distribution-{{ jetty_version }}.tar.gz
+    dest: /tmp/jetty-distribution-{{ jetty_version }}.tar.gz
+  tags:
+    - jetty
+
+- name: unarchive tarball
+  unarchive: src=/tmp/jetty-distribution-{{ jetty_version }}.tar.gz dest=/opt owner=jetty copy=no
+  tags:
+    - jetty
+
+- name: link startup script
+  file: src=/opt/jetty-distribution-{{ jetty_version }}/bin/jetty.sh dest=/etc/init.d/jetty state=link
+  tags:
+    - jetty
+
+- name: write configuration
+  template: src=jetty.j2 dest=/etc/default/jetty
+
+- name: setup as startup service
+  service: name=jetty state=started enabled=yes
+  tags:
+    - jetty

@@ -1,3 +1,14 @@
 ---
-dependencies:
-  - { role: java }
+galaxy_info:
+  author: Kęstutis Triponis
+  description: Jetty
+  company: OpenG (Atvira Karta, LLC)
+  license: GPLv3
+  min_ansible_version: 1.9
+  platforms:
+    - name: EL
+      versions:
+        - 6
+  categories:
+    - system
+    - web

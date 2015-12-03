@@ -2,6 +2,14 @@
 
 Installs and configures Jetty.
 
+# Configuration Options
+
+Name          | Default         | Description
+--------------|-----------------|------------------------------------------------------------------------------
+java_options  | null            | Extra options to pass to the JVM
+jetty_base    | null            | Location for your configurations and customizations to the Jetty distribution
+jetty_version | 9.3.6.v20151106 | Jetty version that will be installed
+
 # Usage example
 
 ```yaml
@@ -10,7 +18,8 @@ Installs and configures Jetty.
   sudo: true
   roles:
     - role: jetty
-      jetty_base: /opt/jetty
+      java_options: -Xms1024m -Xmx1024m
+      jetty_base: /home/user/application
 ```
 
 # License

@@ -4,11 +4,12 @@ Installs and configures Jetty.
 
 # Configuration Options
 
-Name          | Default         | Description
---------------|-----------------|------------------------------------------------------------------------------
-java_options  | null            | Extra options to pass to the JVM
-jetty_base    | null            | Location for your configurations and customizations to the Jetty distribution
-jetty_version | 9.3.6.v20151106 | Jetty version that will be installed
+Name          | Default              | Description
+--------------|----------------------|------------------------------------------------------------------------------
+java_options  | null                 | Extra options to pass to the JVM
+jetty_base    | /opt/jetty/demo-base | Location for your configurations and customizations to the Jetty distribution
+jetty_home    | /opt/jetty           | Location for the Jetty distribution binaries / Install directory
+jetty_version | 9.3.6.v20151106      | Jetty version that will be installed
 
 # Usage example
 

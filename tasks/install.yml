@@ -1,0 +1,23 @@
+---
+- name: download tarball
+  get_url:
+    url: http://download.eclipse.org/jetty/{{ jetty_version }}/dist/jetty-distribution-{{ jetty_version }}.tar.gz
+    dest: /tmp/jetty-distribution-{{ jetty_version }}.tar.gz
+  tags:
+    - jetty
+
+- name: unarchive tarball
+  unarchive: src=/tmp/jetty-distribution-{{ jetty_version }}.tar.gz dest=/opt owner=jetty copy=no
+  tags:
+    - jetty
+
+- name: remove old install directory
+  file: path={{ jetty_home }} state=absent
+  when: current_jetty_version|success
+  tags:
+    - jetty
+
+- name: move to install directory
+  command: mv /opt/jetty-distribution-{{ jetty_version }} {{ jetty_home }}
+  tags:
+    - jetty

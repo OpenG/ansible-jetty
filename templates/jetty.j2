@@ -1,6 +1,6 @@
 {% if java_options is defined %}
 JAVA_OPTIONS={{ java_options }}
 {% endif %}
-JETTY_HOME=/opt/jetty-distribution-{{ jetty_version }}
+JETTY_HOME={{ jetty_home }}
 JETTY_BASE={{ jetty_base }}
 JETTY_USER=jetty

@@ -19,9 +19,9 @@
     - jetty
 
 - include: install.yml
+  when: current_jetty_version|skipped or current_jetty_version.stdout != jetty_version
   tags:
     - jetty
-  when: current_jetty_version|skipped or current_jetty_version.stdout != jetty_version
 
 - name: link startup script
   file: src={{ jetty_home }}/bin/jetty.sh dest=/etc/init.d/jetty state=link

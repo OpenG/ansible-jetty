@@ -1,7 +1,7 @@
 [Unit]
 Description=Jetty
 After=network.target mongod.service
-Requires=mongod.service
+Wants=mongod.service
 
 [Service]
 Type=simple

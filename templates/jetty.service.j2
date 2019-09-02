@@ -1,0 +1,15 @@
+[Unit]
+Description=Jetty
+After=network.target mongod.service
+Requires=mongod.service
+
+[Service]
+Type=simple
+User=jetty
+Group=jetty
+ExecStart=/usr/bin/java -jar /opt/jetty/start.jar jetty.home=/opt/jetty jetty.base=/opt/colibri jetty.http.port=8080
+ExecStop=/bin/kill ${MAINPID}
+SuccessExitStatus=143
+
+[Install]
+WantedBy=multi-user.target

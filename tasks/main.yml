@@ -2,13 +2,13 @@
 - name: add user
   user: name=jetty system=yes
   tags:
-    - jetty
+  - jetty
 
 - name: check for previous installations
   stat: path={{ jetty_home }}/VERSION.txt
   register: jetty_path
   tags:
-    - jetty
+  - jetty
 
 - name: check previous version
   shell: awk -F['- '] 'NR==1 {print $2; exit}' {{ jetty_home }}/VERSION.txt
@@ -16,22 +16,29 @@
   changed_when: current_jetty_version.stdout != jetty_version
   when: jetty_path.stat.exists
   tags:
-    - jetty
+  - jetty
 
 - include: install.yml
   tags:
-    - jetty
+  - jetty
   when: current_jetty_version|skipped or current_jetty_version.stdout != jetty_version
 
-- name: link startup script
-  file: src={{ jetty_home }}/bin/jetty.sh dest=/etc/init.d/jetty state=link
+- name: setup jetty service
+  template:
+    src: jetty.service.j2
+    dest: /etc/systemd/system/jetty.service
   tags:
-    - jetty
+  - jetty
 
 - name: write configuration
   template: src=jetty.j2 dest=/etc/default/jetty
+  tags:
+  - jetty
 
 - name: setup as startup service
-  service: name=jetty state=started enabled=yes
+  service:
+    name: jetty
+    state: started
+    enabled: yes
   tags:
     - jetty

@@ -1,6 +1,6 @@
 [Unit]
 Description=Jetty
-After=network.target mongod.service
+After=multi-user.target mongod.service
 Wants=mongod.service
 
 [Service]

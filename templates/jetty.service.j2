@@ -7,7 +7,7 @@ Wants=mongod.service
 Type=simple
 User=jetty
 Group=jetty
-ExecStart=/usr/bin/java -jar /opt/jetty/start.jar jetty.home=/opt/jetty jetty.base=/opt/colibri jetty.http.port=8080
+ExecStart=/usr/bin/java -jar {{ jetty_home }}/start.jar jetty.home={{ jetty_home }} jetty.base={{ jetty_base }} jetty.http.port={{ jetty_http_port }}
 ExecStop=/bin/kill ${MAINPID}
 SuccessExitStatus=143
 

@@ -2,3 +2,4 @@
 jetty_home: /opt/jetty
 jetty_base: /opt/jetty/demo-base
 jetty_version: 9.3.6.v20151106
+jetty_http_port: 8080

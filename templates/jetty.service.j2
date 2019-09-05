@@ -7,7 +7,9 @@ Wants=mongod.service
 Type=simple
 User=jetty
 Group=jetty
-ExecStart=/usr/bin/java -jar {{ jetty_home }}/start.jar jetty.home={{ jetty_home }} jetty.base={{ jetty_base }} jetty.http.port={{ jetty_http_port }}
+Environment='JAVA_OPTIONS=-Xmx3G -Djetty.logging.dir={{ jetty_base }}/logs -Djetty.home={{ jetty_home }} -Djetty.base={{ jetty_base }} -Djava.io.tmpdir=/tmp'
+Environment='JETTY_ARGS=jetty.state={{ jetty_base }}/jetty.state jetty-logging.xml jetty-started.xml'
+ExecStart=/usr/bin/java $JAVA_OPTIONS -jar {{ jetty_home }}/start.jar $JETTY_ARGS
 ExecStop=/bin/kill ${MAINPID}
 SuccessExitStatus=143
 
